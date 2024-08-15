@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/eventoform.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div-titulo">
+      <h1>
+
+        {% if form.instance.pk %}
+        EDITAR 
+        {% else %}
+        CRIAR 
+        {% endif %}
+        EVENTO
+      </h1>
+    </div>
+
+    <div class="caixa-principal">
+      <form method="post" >
+
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="campos">
+            {{ field.label }}
+            {{ field }}
+          </div>
+        {% endfor %}
+        <button type="submit" class="botao btn-salvar">Salvar</button>
+  
+      </form>
+      <a href="{% url 'lista_eventos' %}" class="botao btn-voltar">Voltar</a>
+    </div>
+    
+ 
+</body>
+</html>

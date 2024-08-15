@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/lista_eventos.css' %}">
+    <title>Lista de eventos</title>
+</head>
+<body>
+  <div class="div-titulo">
+    <h1>EVENTOS CULTURAIS</h1>
+  </div>
+
+  <div class="div-novo-evento">
+    <a href="{% url 'criar_evento' %}">
+      Criar Novo Evento
+    </a>  
+  </div>
+
+  <div class="caixa-principal">
+
+    {% for evento in eventos %}
+
+      <div class="caixa-evento">
+        <div class="caixa-campos">
+
+          <p class="titulo">{{ evento.titulo }}</p>
+
+          <div class="informacoes">
+              <p>tipo: {{ evento.tipo}}</p>
+            <p>data: {{ evento.data_inicio }}
+              {% if evento.data_fim %} 
+                a {{ evento.data_fim }}
+              {% endif %}
+            </p>
+
+            <p>preço:  
+              {% if evento.valor == 0 or evento.valor == None%}
+                Gratuito
+              {% else %}
+                R$ {{ evento.valor }}
+              {% endif %}
+            </p>
+            <p>local: {{ evento.local}}</p>
+            <p>horario: {{ evento.horario}}</p>
+            <p>cidade: {{ evento.cidade}}</p>
+            <p>vagas: 
+              {% if evento.quantidade_vagas == 0 or  evento.quantidade_vagas == None %}
+                ilimitado
+              {% else %}
+                {{ evento.quantidade_vagas}}
+              {% endif %}
+            </p>
+ 
+          </div>
+          <div class="div-btn">
+            <a href="{% url 'editar_evento' evento.pk %}" class='btn-editar'>
+              Editar
+            </a> 
+          </div>
+
+        </div>
+      </div>
+      
+    {% endfor %}
+
+  </div>
+</body>
+</html>
